@@ -134,12 +134,12 @@ func Execute(a, operator, b string) (string, error) {
 
 func main() {
 	if len(os.Args) != 4 {
-		fmt.Println("Введите аргументы команды в формате: <число> <оператор> <число>")
+		panic("Введите аргументы команды в формате: <число> <оператор> <число>")
 		return
 	}
 	result, err := Execute(os.Args[1], os.Args[2], os.Args[3])
 	if err != nil {
-		fmt.Println("Ошибка: ", err)
+		panic("Ошибка: " + err.Error())
 		return
 	}
 	fmt.Println(result)
