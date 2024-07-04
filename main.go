@@ -133,14 +133,24 @@ func Execute(a, operator, b string) (string, error) {
 }
 
 func main() {
-	if len(os.Args) != 4 {
-		panic("Введите аргументы команды в формате: <число> <оператор> <число>")
+	fmt.Print("Input: ")
+	input, err := bufio.NewReader(os.Stdin).ReadString('\n')
+	input = strings.TrimSpace(input)
+	input = strings.ReplaceAll(input, " ", "")
+	input = strings.ReplaceAll(input, "*", " * ")
+	input = strings.ReplaceAll(input, "/", " / ")
+	input = strings.ReplaceAll(input, "+", " + ")
+	input = strings.ReplaceAll(input, "-", " - ")
+	inputArr := strings.Split(input, " ")
+
+	if len(inputArr) != 3 {
+		panic("Выражение некорректно")
 		return
 	}
-	result, err := Execute(os.Args[1], os.Args[2], os.Args[3])
+	result, err := Execute(inputArr[0], inputArr[1], inputArr[2])
 	if err != nil {
-		panic("Ошибка: ", err)
+		panic(err.Error())
 		return
 	}
-	fmt.Println(result)
+	fmt.Println("Output: " + result)
 }
