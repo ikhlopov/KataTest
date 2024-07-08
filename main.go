@@ -133,26 +133,21 @@ func Execute(a, operator, b string) (string, error) {
 	return strconv.Itoa(res), nil
 }
 
-func formatInputString(input string) string {
-
-	input = strings.TrimSpace(input)
-	input = strings.ReplaceAll(input, " ", "")
+func inputFields(input string) []string {
 
 	operations := []string{"+", "-", "*", "/"}
 	for _, operation := range operations {
 		input = strings.ReplaceAll(input, operation, " "+operation+" ")
 	}
+	return strings.Fields(input)
 
-	return input
 }
 
 func main() {
 	fmt.Print("Input: ")
 	input, err := bufio.NewReader(os.Stdin).ReadString('\n')
 
-	formatInputString(input)
-
-	inputArr := strings.Split(input, " ")
+	inputArr := inputFields(input)
 
 	if len(inputArr) != 3 {
 		panic("Выражение некорректно")
